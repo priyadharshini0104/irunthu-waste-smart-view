@@ -21,10 +21,10 @@ const Reports = () => {
 
   const getPriorityText = (priority: string) => {
     switch (priority) {
-      case 'high': return 'உயர்';
-      case 'medium': return 'நடுத்தர';
-      case 'low': return 'குறைந்த';
-      default: return 'தெரியவில்லை';
+      case 'high': return 'High';
+      case 'medium': return 'Medium';
+      case 'low': return 'Low';
+      default: return 'Unknown';
     }
   };
 
@@ -38,9 +38,9 @@ const Reports = () => {
 
   const getStatusText = (status: string) => {
     switch (status) {
-      case 'resolved': return 'தீர்க்கப்பட்டது';
-      case 'pending': return 'நிலுவையில்';
-      default: return 'தெரியவில்லை';
+      case 'resolved': return 'Resolved';
+      case 'pending': return 'Pending';
+      default: return 'Unknown';
     }
   };
 
@@ -58,9 +58,9 @@ const Reports = () => {
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">புகார் அறிக்கைகள்</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Reports</h1>
           <p className="text-gray-600">
-            பயனர்களிடமிருந்து வந்த புகார்கள் மற்றும் அவற்றின் நிலை
+            Complaints received from users and their status
           </p>
         </div>
 
@@ -68,7 +68,7 @@ const Reports = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">மொத்த புகார்கள்</CardTitle>
+              <CardTitle className="text-sm font-medium">Total Reports</CardTitle>
               <AlertCircle className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -78,7 +78,7 @@ const Reports = () => {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">நிலுவையில்</CardTitle>
+              <CardTitle className="text-sm font-medium">Pending</CardTitle>
               <Clock className="h-4 w-4 text-yellow-500" />
             </CardHeader>
             <CardContent>
@@ -90,7 +90,7 @@ const Reports = () => {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">தீர்க்கப்பட்டது</CardTitle>
+              <CardTitle className="text-sm font-medium">Resolved</CardTitle>
               <CheckCircle2 className="h-4 w-4 text-green-500" />
             </CardHeader>
             <CardContent>
@@ -104,17 +104,17 @@ const Reports = () => {
         {/* Reports List */}
         <Card>
           <CardHeader>
-            <CardTitle>புகார் பட்டியல்</CardTitle>
+            <CardTitle>Report List</CardTitle>
             <CardDescription>
-              தேதி வாரியாக வரிசைப்படுத்தப்பட்ட புகார்கள்
+              Reports sorted by date
             </CardDescription>
           </CardHeader>
           <CardContent>
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="all">அனைத்தும்</TabsTrigger>
-                <TabsTrigger value="pending">நிலுவையில்</TabsTrigger>
-                <TabsTrigger value="resolved">தீர்க்கப்பட்டது</TabsTrigger>
+                <TabsTrigger value="all">All</TabsTrigger>
+                <TabsTrigger value="pending">Pending</TabsTrigger>
+                <TabsTrigger value="resolved">Resolved</TabsTrigger>
               </TabsList>
               
               <TabsContent value={activeTab} className="mt-4">
@@ -128,7 +128,7 @@ const Reports = () => {
                             <div className="flex-1 space-y-3">
                               <div className="flex items-center space-x-3">
                                 <Badge className={`${getPriorityColor(report.priority)} text-white`}>
-                                  {getPriorityText(report.priority)} முன்னுரிமை
+                                  {getPriorityText(report.priority)} Priority
                                 </Badge>
                                 <Badge variant="outline" className={getStatusColor(report.status)}>
                                   {getStatusText(report.status)}
@@ -148,7 +148,7 @@ const Reports = () => {
                                     </div>
                                     <div className="flex items-center space-x-1">
                                       <User className="h-4 w-4" />
-                                      <span>தொழிலாளர்: {dustbinInfo.assignedWorker}</span>
+                                      <span>Worker: {dustbinInfo.assignedWorker}</span>
                                     </div>
                                     {dustbinInfo.workerPhone && (
                                       <div className="flex items-center space-x-1">
@@ -160,7 +160,7 @@ const Reports = () => {
                                 )}
                                 
                                 <div className="text-sm text-gray-500">
-                                  {report.timestamp.toLocaleString('ta-IN')}
+                                  {report.timestamp.toLocaleString('en-US')}
                                 </div>
                               </div>
                             </div>
@@ -168,11 +168,11 @@ const Reports = () => {
                             <div className="flex space-x-2">
                               {report.status === 'pending' && (
                                 <Button size="sm" className="bg-green-600 hover:bg-green-700">
-                                  தீர்க்கப்பட்டதாக குறிக்கவும்
+                                  Mark as Resolved
                                 </Button>
                               )}
                               <Button variant="outline" size="sm">
-                                விவரங்கள் பார்க்கவும்
+                                View Details
                               </Button>
                             </div>
                           </div>
@@ -184,7 +184,7 @@ const Reports = () => {
                   {filteredReports.length === 0 && (
                     <div className="text-center py-8 text-gray-500">
                       <AlertCircle className="h-12 w-12 mx-auto mb-4 text-gray-300" />
-                      <p>இந்த வகையில் புகார்கள் இல்லை</p>
+                      <p>No reports in this category</p>
                     </div>
                   )}
                 </div>

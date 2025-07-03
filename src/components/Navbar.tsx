@@ -16,7 +16,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center space-x-4">
-            <h1 className="text-xl font-bold">ஸ்மார்ட் குப்பை மேலாண்மை</h1>
+            <h1 className="text-xl font-bold">Smart Waste Management</h1>
             <div className="hidden md:flex space-x-4 ml-8">
               <Link 
                 to="/dashboard" 
@@ -25,7 +25,7 @@ const Navbar = () => {
                 }`}
               >
                 <Home className="inline mr-1 h-4 w-4" />
-                டாஷ்போர்ட்
+                Dashboard
               </Link>
               {user?.role === 'head' && (
                 <Link 
@@ -35,7 +35,7 @@ const Navbar = () => {
                   }`}
                 >
                   <FileText className="inline mr-1 h-4 w-4" />
-                  அறிக்கைகள்
+                  Reports
                 </Link>
               )}
               <Link 
@@ -45,7 +45,7 @@ const Navbar = () => {
                 }`}
               >
                 <Settings className="inline mr-1 h-4 w-4" />
-                அமைப்புகள்
+                Settings
               </Link>
               <Link 
                 to="/about" 
@@ -53,7 +53,7 @@ const Navbar = () => {
                   isActive('/about') ? 'bg-green-700' : 'hover:bg-green-700'
                 }`}
               >
-                எங்களை பற்றி
+                About Us
               </Link>
             </div>
           </div>
@@ -62,8 +62,8 @@ const Navbar = () => {
               <User className="h-5 w-5" />
               <span className="text-sm font-medium">{user?.name}</span>
               <span className="text-xs bg-green-700 px-2 py-1 rounded">
-                {user?.role === 'user' ? 'பயனர்' : 
-                 user?.role === 'worker' ? 'தொழிலாளர்' : 'தலைவர்'}
+                {user?.role === 'user' ? 'User' : 
+                 user?.role === 'worker' ? 'Worker' : 'Head'}
               </span>
             </div>
             <Button 
@@ -73,7 +73,7 @@ const Navbar = () => {
               className="bg-transparent border-white text-white hover:bg-white hover:text-green-600"
             >
               <LogOut className="h-4 w-4 mr-1" />
-              வெளியேறு
+              Logout
             </Button>
           </div>
         </div>

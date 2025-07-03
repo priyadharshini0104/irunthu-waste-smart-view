@@ -27,11 +27,11 @@ const DustbinCard: React.FC<DustbinCardProps> = ({ dustbin, onReport }) => {
 
   const getStatusText = (status: string) => {
     switch (status) {
-      case 'normal': return 'சாதாரணம்';
-      case 'warning': return 'எச்சரிக்கை';
-      case 'critical': return 'அபாயம்';
-      case 'overflow': return 'நிரம்பி வழிகிறது';
-      default: return 'தெரியவில்லை';
+      case 'normal': return 'Normal';
+      case 'warning': return 'Warning';
+      case 'critical': return 'Critical';
+      case 'overflow': return 'Overflowing';
+      default: return 'Unknown';
     }
   };
 
@@ -63,7 +63,7 @@ const DustbinCard: React.FC<DustbinCardProps> = ({ dustbin, onReport }) => {
       <CardContent className="space-y-3">
         <div className="space-y-2">
           <div className="flex justify-between text-sm">
-            <span>நிரம்பிய அளவு:</span>
+            <span>Fill Level:</span>
             <span className="font-medium">{dustbin.fillingLevel}%</span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2">
@@ -77,7 +77,7 @@ const DustbinCard: React.FC<DustbinCardProps> = ({ dustbin, onReport }) => {
         {(user?.role === 'head' || user?.role === 'worker') && dustbin.assignedWorker && (
           <div className="space-y-1 text-sm">
             <div className="flex items-center justify-between">
-              <span className="text-gray-600">பொறுப்பு தொழிலாளர்:</span>
+              <span className="text-gray-600">Assigned Worker:</span>
               <span className="font-medium">{dustbin.assignedWorker}</span>
             </div>
             {dustbin.workerPhone && (
@@ -91,7 +91,7 @@ const DustbinCard: React.FC<DustbinCardProps> = ({ dustbin, onReport }) => {
 
         <div className="flex items-center text-xs text-gray-500">
           <Clock className="h-3 w-3 mr-1" />
-          கடைசியாக புதுப்பிக்கப்பட்டது: {dustbin.lastUpdated.toLocaleTimeString('ta-IN')}
+          Last updated: {dustbin.lastUpdated.toLocaleTimeString('en-US')}
         </div>
 
         {user?.role === 'user' && onReport && (
@@ -101,7 +101,7 @@ const DustbinCard: React.FC<DustbinCardProps> = ({ dustbin, onReport }) => {
             size="sm" 
             className="w-full mt-3 hover:bg-red-50 hover:border-red-300 hover:text-red-700"
           >
-            சிக்கலை தெரிவிக்கவும்
+            Report Issue
           </Button>
         )}
       </CardContent>

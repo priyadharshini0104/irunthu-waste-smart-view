@@ -26,16 +26,16 @@ const Dashboard = () => {
   const submitReport = () => {
     if (!reportMessage.trim()) {
       toast({
-        title: "பிழை",
-        description: "தயவுசெய்து சிக்கல் விவரங்களை எழுதுங்கள்",
+        title: "Error",
+        description: "Please describe the issue",
         variant: "destructive",
       });
       return;
     }
 
     toast({
-      title: "வெற்றி",
-      description: "உங்கள் புகார் வெற்றிகரமாக சமர்பிக்கப்பட்டது",
+      title: "Success",
+      description: "Your report has been submitted successfully",
     });
 
     setIsReportDialogOpen(false);
@@ -60,12 +60,12 @@ const Dashboard = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            {user?.role === 'user' && 'பயனர் டாஷ்போர்ட்'}
-            {user?.role === 'worker' && 'தொழிலாளர் டாஷ்போர்ட்'}
-            {user?.role === 'head' && 'பஞ்சாயத்து தலைவர் டாஷ்போர்ட்'}
+            {user?.role === 'user' && 'User Dashboard'}
+            {user?.role === 'worker' && 'Worker Dashboard'}
+            {user?.role === 'head' && 'Panchayat Head Dashboard'}
           </h1>
           <p className="text-gray-600">
-            வணக்கம் {user?.name}! உங்கள் பகுதியின் குப்பைத் தொட்டிகளின் நிலையை கண்காணிக்கவும்.
+            Welcome {user?.name}! Monitor the status of dustbins in your area.
           </p>
         </div>
 
@@ -73,52 +73,52 @@ const Dashboard = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">மொத்த தொட்டிகள்</CardTitle>
+              <CardTitle className="text-sm font-medium">Total Dustbins</CardTitle>
               <TrendingUp className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{stats.total}</div>
               <p className="text-xs text-muted-foreground">
-                அனைத்து குப்பைத் தொட்டிகள்
+                All dustbins
               </p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">அபாய நிலை</CardTitle>
+              <CardTitle className="text-sm font-medium">Critical</CardTitle>
               <AlertTriangle className="h-4 w-4 text-red-500" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-red-600">{stats.critical}</div>
               <p className="text-xs text-muted-foreground">
-                உடனடி கவனம் தேவை
+                Needs immediate attention
               </p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">எச்சரிக்கை</CardTitle>
+              <CardTitle className="text-sm font-medium">Warning</CardTitle>
               <Clock className="h-4 w-4 text-yellow-500" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-yellow-600">{stats.warning}</div>
               <p className="text-xs text-muted-foreground">
-                விரைவில் கவனம் தேவை
+                Needs attention soon
               </p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">சாதாரண நிலை</CardTitle>
+              <CardTitle className="text-sm font-medium">Normal</CardTitle>
               <CheckCircle className="h-4 w-4 text-green-500" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-green-600">{stats.normal}</div>
               <p className="text-xs text-muted-foreground">
-                நல்ல நிலையில் உள்ளது
+                In good condition
               </p>
             </CardContent>
           </Card>
@@ -126,7 +126,7 @@ const Dashboard = () => {
 
         {/* Dustbin Grid */}
         <div className="mb-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">குப்பைத் தொட்டிகளின் நிலை</h2>
+          <h2 className="text-xl font-semibold text-gray-900 mb-4">Dustbin Status</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {mockDustbins.map((dustbin) => (
               <DustbinCard
@@ -142,17 +142,17 @@ const Dashboard = () => {
         <Dialog open={isReportDialogOpen} onOpenChange={setIsReportDialogOpen}>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
-              <DialogTitle>சிக்கலை தெரிவிக்கவும்</DialogTitle>
+              <DialogTitle>Report Issue</DialogTitle>
               <DialogDescription>
-                குப்பைத் தொட்டியில் உள்ள சிக்கல் பற்றி விவரமாக எழுதுங்கள்.
+                Please describe the issue with the dustbin in detail.
               </DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
               <div className="space-y-2">
-                <Label htmlFor="report-message">சிக்கல் விவரம்</Label>
+                <Label htmlFor="report-message">Issue Description</Label>
                 <Textarea
                   id="report-message"
-                  placeholder="எ.கா: குப்பைத் தொட்டி நிரம்பி வழிகிறது, துர்நாற்றம் வீசுகிறது..."
+                  placeholder="e.g: Dustbin is overflowing, bad smell..."
                   value={reportMessage}
                   onChange={(e) => setReportMessage(e.target.value)}
                   className="min-h-[100px]"
@@ -161,10 +161,10 @@ const Dashboard = () => {
             </div>
             <DialogFooter>
               <Button variant="outline" onClick={() => setIsReportDialogOpen(false)}>
-                ரத்து செய்யவும்
+                Cancel
               </Button>
               <Button onClick={submitReport}>
-                புகார் சமர்பிக்கவும்
+                Submit Report
               </Button>
             </DialogFooter>
           </DialogContent>

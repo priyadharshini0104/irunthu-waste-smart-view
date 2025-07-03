@@ -39,10 +39,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       id: Math.random().toString(36).substr(2, 9),
       username,
       role,
-      name: username === 'admin' ? 'பஞ்சாயத்து தலைவர்' : 
-            role === 'worker' ? 'குப்பை சேகரிப்பு தொழிலாளர்' : 'பயனர்',
+      name: username === 'admin' ? 'Panchayat Head' : 
+            role === 'worker' ? 'Waste Collection Worker' : 'User',
       phone: role === 'worker' ? '9876543210' : undefined,
-      area: role === 'user' ? 'அண்ணா நகர்' : undefined
+      area: role === 'user' ? 'Anna Nagar' : undefined
     };
     
     setUser(userData);
